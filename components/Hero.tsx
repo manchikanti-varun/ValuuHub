@@ -86,7 +86,7 @@ export default function Hero() {
         </div>
 
         {/* Foreground content */}
-        <div className="relative z-10 mb-8">
+        <div className="relative z-10 mt-32 mb-96">
           <motion.div initial={{ y: 0 }} animate={{ y: -30 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}>
             <h1
               className="mb-4 text-center"

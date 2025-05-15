@@ -42,7 +42,7 @@ export default function ContactPage() {
 
                 {/* White content box */}
                 <div className="max-w-4xl mx-auto bg-white p-8 relative z-10">
-                    <div className="absolute left-4 top-4 bottom-4 w-1 bg-[#0747CC]" />
+                    <div className="absolute left-96 top-20 bottom-20 w-0.5 bg-[#0747CC]" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Contact information */}
                         <div>

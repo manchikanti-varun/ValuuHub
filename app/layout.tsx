@@ -4,6 +4,7 @@ import "./globals.css"
 
 // Import fonts
 import { inter, poppins, bankGothic } from "./fonts"
+import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "ValuuHub",
@@ -18,7 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${bankGothic.variable} `}>
-      <body className={`${inter.className}`}>{children}</body>
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
+        <div className="flex-grow">{children}</div>
+        <Footer />
+      </body>
     </html>
   )
 }

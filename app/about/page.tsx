@@ -88,13 +88,15 @@ export default function AboutPage() {
                                 <Image src="/3d sphere.png" alt="3D Sphere" width={80} height={80} className="opacity-75" />
                             </div>
 
-                            {/* Button */}
-                            <button
+                            {/* Button with glass effect */}
+                            <motion.button
                                 onClick={handleTeamClick}
-                                className="bg-transparent hover:bg-blue-600/30 text-white font-bold py-3 px-16 rounded-full border border-white/30 transition-all duration-300 z-10 mx-12"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="backdrop-blur-sm bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-16 rounded-full border border-white/30 transition-all duration-300 z-10 mx-12 shadow-lg"
                             >
-                                Team V
-                            </button>
+                                TEAM V
+                            </motion.button>
 
                             {/* Right wireframe diamond */}
                             <div className="absolute right-24 top-1/4 transform -translate-y-1/2">

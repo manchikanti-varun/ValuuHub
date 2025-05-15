@@ -34,7 +34,7 @@ const teamMembers: TeamMember[] = [
         title: "CEO",
         description:
             "leads with vision and drives growth. With strategic insight and innovative thinking, he guides Valuu Hub to new heights of success and client satisfaction.",
-        image: "ceo.png",
+        image: "CEO.png",
         linkedin: "https://www.linkedin.com/in/dorbala-sadanand-sharma-43a914259/",
         instagram: "https://www.instagram.com/sadanand_sharmaa/",
         position: "top",

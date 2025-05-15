@@ -1,4 +1,5 @@
 "use client"
+
 import { motion } from "framer-motion"
 import { Linkedin, Instagram } from "lucide-react"
 import Image from "next/image"
@@ -33,7 +34,7 @@ const teamMembers: TeamMember[] = [
         title: "CEO",
         description:
             "leads with vision and drives growth. With strategic insight and innovative thinking, he guides Valuu Hub to new heights of success and client satisfaction.",
-        image: "CEO.png",
+        image: "ceo.png",
         linkedin: "https://www.linkedin.com/in/dorbala-sadanand-sharma-43a914259/",
         instagram: "https://www.instagram.com/sadanand_sharmaa/",
         position: "top",
@@ -56,59 +57,72 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
 
     return (
         <motion.div
-            className="relative h-full"
+            className="relative h-full w-full"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
-            {/* Card with fixed dimensions that won't change on hover */}
+            {/* Card with improved design */}
             <div
-                className="bg-white rounded-lg overflow-hidden h-full border-2 border-blue-300 shadow-md relative"
-                style={{ minHeight: "400px" }} // Fixed minimum height
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                className="relative rounded-3xl overflow-hidden h-full shadow-lg"
+                style={{ maxWidth: "320px", margin: "0 auto" }}
             >
-                {/* Base card content - always present */}
-                <div className="h-72 w-full relative">
-                    <Image
-                        src={member.image || "/placeholder.svg"}
-                        alt={member.name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 300px"
-                    />
-                </div>
-                <div className="bg-blue-800 text-white p-4 text-center">
-                    <h3 className="font-bold text-xl">{member.name}</h3>
-                    <p className="text-md">{member.title}</p>
+                {/* Image container with rounded corners */}
+                <div className="relative bg-white rounded-3xl overflow-hidden border-4 border-blue-100">
+                    {/* Image container */}
+                    <div className="h-80 w-full relative">
+                        <Image
+                            src={member.image || "/placeholder.svg"}
+                            alt={member.name}
+                            fill
+                            className="object-cover object-center"
+                            sizes="(max-width: 768px) 100vw, 300px"
+                        />
+                    </div>
+
+                    {/* Name and title footer */}
+                    <div className="bg-blue-700 text-white py-4 px-4 text-center">
+                        <h3 className="font-bold text-2xl">{member.name}</h3>
+                        <p className="text-lg">{member.title}</p>
+                    </div>
                 </div>
 
-                {/* Hover overlay - absolutely positioned */}
-                {isHovered && (
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-400 to-blue-800 text-white p-6 rounded-lg flex flex-col">
-                        <h3 className="font-bold text-2xl text-center mb-3">{member.name}</h3>
-                        <p className="text-md text-center mb-4">{member.title}</p>
-                        <p className="text-md text-center mb-8">{member.description}</p>
-                        <div className="flex justify-center space-x-6 mt-auto">
-                            <a
-                                href={member.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="bg-white rounded-full p-3 hover:bg-blue-100 transition-colors"
-                            >
-                                <Linkedin size={24} className="text-blue-800" />
-                            </a>
-                            <a
-                                href={member.instagram}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="bg-white rounded-full p-3 hover:bg-blue-100 transition-colors"
-                            >
-                                <Instagram size={24} className="text-blue-800" />
-                            </a>
-                        </div>
+                {/* Hover overlay with content */}
+                <motion.div
+                    className="absolute inset-0 bg-blue-600 text-white rounded-3xl overflow-hidden flex flex-col justify-between p-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isHovered ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ pointerEvents: isHovered ? "auto" : "none" }}
+                >
+                    <div className="text-center space-y-4">
+                        <h3 className="font-bold text-2xl">{member.name}</h3>
+                        <p className="text-xl">{member.title}</p>
+                        <div className="w-16 h-1 bg-white mx-auto my-2"></div>
+                        <p className="text-md leading-relaxed">{member.description}</p>
                     </div>
-                )}
+
+                    <div className="flex justify-center space-x-4 mt-4">
+                        <a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-white rounded-full p-3 hover:bg-blue-100 transition-colors"
+                        >
+                            <Linkedin size={24} className="text-blue-700" />
+                        </a>
+                        <a
+                            href={member.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-white rounded-full p-3 hover:bg-blue-100 transition-colors"
+                        >
+                            <Instagram size={24} className="text-blue-700" />
+                        </a>
+                    </div>
+                </motion.div>
             </div>
         </motion.div>
     )
@@ -125,7 +139,7 @@ export default function TeamSection() {
             className="text-white py-24 px-6 relative"
             style={{ background: "linear-gradient(to bottom, #1C67FB, #5A90FC)" }}
         >
-            {/* Decorative lines at top */}
+            {/* Decorative elements */}
             <div className="absolute top-0 left-0 w-full">
                 <div className="max-w-6xl mx-auto relative">
                     <div className="absolute left-0 top-0 w-1/4 h-1 bg-white opacity-30"></div>
@@ -137,25 +151,25 @@ export default function TeamSection() {
                 <h2 className="text-4xl font-bold text-center mb-20">OUR TEAM</h2>
 
                 <div className="flex flex-col items-center justify-center">
-                    {/* Top member (CEO) - Increased max width */}
+                    {/* Top member (CEO) */}
                     {topMember && (
-                        <div className="w-full max-w-sm mb-24">
+                        <div className="w-full max-w-xs mb-24">
                             <TeamMemberCard member={topMember} />
                         </div>
                     )}
 
-                    {/* Bottom row with two members - Increased max width */}
+                    {/* Bottom row with two members */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-full max-w-4xl mx-auto">
                         {bottomLeftMember && (
                             <div className="flex justify-center">
-                                <div className="w-full max-w-sm">
+                                <div className="w-full max-w-xs">
                                     <TeamMemberCard member={bottomLeftMember} />
                                 </div>
                             </div>
                         )}
                         {bottomRightMember && (
                             <div className="flex justify-center">
-                                <div className="w-full max-w-sm">
+                                <div className="w-full max-w-xs">
                                     <TeamMemberCard member={bottomRightMember} />
                                 </div>
                             </div>

@@ -39,7 +39,7 @@ export default function Hero() {
               lineHeight: "100%",
               letterSpacing: "0",
               color: "transparent",
-              WebkitTextStroke: "1px rgba(255, 255, 255, 0.3)",
+              WebkitTextStroke: "1px rgba(255, 255, 255, 0.5)",
               overflow: "visible",
             }}
           >
@@ -58,7 +58,7 @@ export default function Hero() {
               lineHeight: "100%",
               letterSpacing: "0",
               color: "transparent",
-              WebkitTextStroke: "1px rgba(255, 255, 255, 0.3)",
+              WebkitTextStroke: "1px rgba(255, 255, 255, 0.5)",
               overflow: "visible",
             }}
           >
@@ -77,7 +77,7 @@ export default function Hero() {
               lineHeight: "100%",
               letterSpacing: "0",
               color: "transparent",
-              WebkitTextStroke: "1px rgba(255, 255, 255, 0.3)",
+              WebkitTextStroke: "1px rgba(255, 255, 255, 0.5)",
               overflow: "visible",
             }}
           >

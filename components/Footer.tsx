@@ -27,17 +27,32 @@ export default function Footer() {
                         {/* Logo */}
                         <div className="mb-6 md:mb-0">
                             <motion.div whileHover={{ scale: 1.05 }} onClick={() => handleNavigation("/")} className="cursor-pointer">
-                                <Image src="/ValuuHubLogo.png" alt="ValuuHub Logo" width={80} height={80} />
+                                <Image src="/ValuuHubLogo.png" alt="ValuuHub Logo" width={150} height={150} />
                             </motion.div>
                         </div>
 
                         {/* Navigation Links */}
                         <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-6 md:mb-0">
-                            <NavLink href="/" label="Home" />
-                            <NavLink href="/services" label="Services" />
-                            <NavLink href="/about" label="About us" />
-                            <NavLink href="/" label="Our Mission" />
-                            <NavLink href="/" label="Blogs" />
+                            <div className="flex items-center">
+                                <span className="text-white/50 mx-2 hidden md:inline">|</span>
+                                <NavLink href="/" label="HOME" />
+                                <span className="text-white/50 mx-2 hidden md:inline">|</span>
+                            </div>
+                            <div className="flex items-center">
+                                <NavLink href="/services" label="Services" />
+                                <span className="text-white/50 mx-2 hidden md:inline">|</span>
+                            </div>
+                            <div className="flex items-center">
+                                <NavLink href="/our-mission" label="Our Mission" />
+                                <span className="text-white/50 mx-2 hidden md:inline">|</span>
+                            </div>
+                            <div className="flex items-center">
+                                <NavLink href="/about" label="About us" />
+                                <span className="text-white/50 mx-2 hidden md:inline">|</span>
+                            </div>
+                            <div className="flex items-center">
+                                <NavLink href="/blogs" label="Blogs" />
+                            </div>
                         </nav>
 
                         {/* Contact Button */}
@@ -45,7 +60,7 @@ export default function Footer() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleNavigation("/contact")}
-                            className="bg-white text-blue-700 font-bold py-3 px-8 rounded-full shadow-lg"
+                            className="bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg"
                         >
                             CONTACT US
                         </motion.button>
@@ -56,18 +71,20 @@ export default function Footer() {
                         <h2 className="text-2xl md:text-3xl font-bold tracking-wide">WE BUILD | WE BRAND</h2>
                     </div>
 
-                    {/* Divider */}
-                    <div className="w-full h-px bg-white/30 my-8"></div>
+                    <div className="relative">
+                        {/* Divider Line */}
+                        <div className="absolute left-1/4 right-0 h-px bg-blue-900 my-8"></div>
 
-                    {/* Bottom section with mission and social links */}
-                    <div className="flex flex-col md:flex-row justify-between items-center">
-                        <p className="text-xl font-medium mb-6 md:mb-0">Your Growth, Our Mission.</p>
+                        {/* Bottom Section */}
+                        <div className="flex flex-col items-center mt-12">
+                            <p className="text-xl font-medium mb-6 text-center">Your Growth, Our Mission.</p>
 
-                        {/* Social Media Icons */}
-                        <div className="flex space-x-6">
-                            <SocialIcon href="https://instagram.com" icon={<Instagram size={24} />} />
-                            <SocialIcon href="https://linkedin.com" icon={<Linkedin size={24} />} />
-                            <SocialIcon href="https://facebook.com" icon={<Facebook size={24} />} />
+                            {/* Social Media Icons */}
+                            <div className="flex space-x-24">
+                                <SocialIcon href="https://instagram.com" icon={<Instagram size={24} />} />
+                                <SocialIcon href="https://linkedin.com" icon={<Linkedin size={24} />} />
+                                <SocialIcon href="https://facebook.com" icon={<Facebook size={24} />} />
+                            </div>
                         </div>
                     </div>
                 </div>

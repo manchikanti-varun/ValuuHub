@@ -11,18 +11,15 @@ export default function TransitionScreen() {
     const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        // Show the fourth screen after a short delay
         const timer = setTimeout(() => {
             setShowFourthScreen(true)
         }, 500)
 
-        // Add scroll event listener to show team section
         const handleScroll = () => {
             if (containerRef.current) {
                 const scrollPosition = window.scrollY
                 const windowHeight = window.innerHeight
 
-                // Show team section when user scrolls down
                 if (scrollPosition > windowHeight * 0.3) {
                     setShowTeam(true)
                 }
@@ -39,7 +36,6 @@ export default function TransitionScreen() {
 
     return (
         <div ref={containerRef} className="relative min-h-screen overflow-x-hidden">
-            {/* Orbit Screens - Updated to linear gradient background */}
             <div
                 className="relative w-full h-screen overflow-hidden"
                 style={{ background: "linear-gradient(to bottom, #044CD9, #1C67FB)" }}
@@ -68,7 +64,6 @@ export default function TransitionScreen() {
                     )}
                 </AnimatePresence>
 
-                {/* Scroll indicator - positioned at the very bottom - Updated gradient color to match new end color */}
                 {showFourthScreen && (
                     <motion.div
                         className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center py-6"

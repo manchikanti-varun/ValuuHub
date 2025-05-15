@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 
 export default function IntroAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(() => onAnimationComplete(), 2000)
+    const timer = setTimeout(() => onAnimationComplete(), 5000)
     return () => clearTimeout(timer)
   }, [onAnimationComplete])
 

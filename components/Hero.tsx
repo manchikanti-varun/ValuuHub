@@ -6,15 +6,14 @@ import TransitionScreen from "./TransitionScreen"
 export default function Hero() {
   const [showTransition, setShowTransition] = useState(false)
 
-  const handleGetInTouch = () => {
+  function handleGetInTouch() {
     setShowTransition(true)
   }
 
   return (
     <>
-      {showTransition ? (
-        <TransitionScreen />
-      ) : (
+      {showTransition && <TransitionScreen />}
+      {!showTransition && (
         <section className="relative w-full bg-gradient-to-b from-blue-800 to-blue-900 text-white px-6 pt-16 pb-24 text-center overflow-hidden">
           {/* Background large outline text with animations */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -103,7 +102,7 @@ export default function Hero() {
             {/* Alternative font fallback */}
             <style jsx>{`
               h1 {
-                font-family: "BankGothic RUSS", "BankGothic", Impact, sans-serif;
+                font-family: "BankGothic";
               }
             `}</style>
             <p
@@ -142,7 +141,7 @@ export default function Hero() {
                 boxShadow: "0 4px 14px rgba(0, 0, 0, 0.2)",
               }}
             >
-              SERVICES
+              OUR EDGE
             </motion.button>
           </div>
 

@@ -1,12 +1,12 @@
-"use client";
-import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+"use client"
+import { useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function IntroAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(() => onAnimationComplete(), 10000);
-    return () => clearTimeout(timer);
-  }, [onAnimationComplete]);
+    const timer = setTimeout(() => onAnimationComplete(), 2000)
+    return () => clearTimeout(timer)
+  }, [onAnimationComplete])
 
   return (
     <AnimatePresence>
@@ -14,7 +14,7 @@ export default function IntroAnimation({ onAnimationComplete }: { onAnimationCom
         className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 2.5 }}
+        transition={{ duration: 500 }}
       >
         {/* Background texture */}
         <div
@@ -50,12 +50,12 @@ export default function IntroAnimation({ onAnimationComplete }: { onAnimationCom
           <motion.div
             initial={{ y: 0 }}
             animate={{ y: "-100%" }}
-            transition={{ duration: 2.5, ease: "easeInOut" }}
+            transition={{ duration: 500, ease: "easeInOut" }}
             className="absolute top-0 left-0 w-full h-full"
             style={{ zIndex: 2 }}
           />
         </div>
       </motion.div>
     </AnimatePresence>
-  );
+  )
 }

@@ -1,44 +1,129 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useRouter } from "next/navigation"
+import { ArrowLeft } from "lucide-react"
+import TeamSection from "./TeamSection"
 
 export default function TransitionScreen() {
     const [showFourthScreen, setShowFourthScreen] = useState(false)
+    const [showTeam, setShowTeam] = useState(false)
+    const router = useRouter()
+    const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        // After 2.5 seconds, show the fourth screen
+        // Show the fourth screen after a short delay
         const timer = setTimeout(() => {
             setShowFourthScreen(true)
-        }, 2500)
+        }, 500)
 
-        return () => clearTimeout(timer)
-    }, [])
+        // Add scroll event listener to show team section
+        const handleScroll = () => {
+            if (containerRef.current) {
+                const scrollPosition = window.scrollY
+                const windowHeight = window.innerHeight
+
+                // Show team section when user scrolls down
+                if (scrollPosition > windowHeight * 0.3) {
+                    setShowTeam(true)
+                }
+            }
+        }
+
+        window.addEventListener("scroll", handleScroll)
+
+        return () => {
+            clearTimeout(timer)
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [router])
+
+    // Function to reload the page
+    const handleBackClick = () => {
+        window.location.reload()
+    }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-blue-900">
-            <AnimatePresence>
-                {!showFourthScreen ? (
+        <div ref={containerRef} className="relative min-h-screen overflow-x-hidden">
+            {/* Back Button */}
+            <motion.button
+                className="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-gray-200 bg-opacity-80 backdrop-blur-sm text-black py-2 px-4 rounded-full hover:bg-gray-300 transition-all duration-300 shadow-lg"
+                onClick={handleBackClick}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+            >
+                <ArrowLeft size={18} />
+                <span>Back</span>
+            </motion.button>
+
+            {/* Orbit Screens */}
+            <div className="relative w-full h-screen overflow-hidden bg-blue-900">
+                <AnimatePresence>
+                    {!showFourthScreen ? (
+                        <motion.div
+                            key="third-screen"
+                            initial={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                            className="absolute inset-0 flex items-center justify-center"
+                        >
+                            <img src="/orbit.png" alt="ValuuHub Services" className="w-full h-full object-contain" />
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="fourth-screen"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                            className="absolute inset-0 flex items-center justify-center"
+                        >
+                            <img src="/orbit-services.png" alt="ValuuHub Services Details" className="w-full h-full object-contain" />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Scroll indicator - positioned at the very bottom */}
+                {showFourthScreen && (
                     <motion.div
-                        key="third-screen"
-                        initial={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                        className="absolute inset-0 flex items-center justify-center"
-                    >
-                        <img src="/third-screen.png" alt="ValuuHub Services" className="w-full h-full object-contain" />
-                    </motion.div>
-                ) : (
-                    <motion.div
-                        key="fourth-screen"
+                        className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center py-6 bg-gradient-to-t from-blue-900 to-transparent"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                        className="absolute inset-0 flex items-center justify-center"
+                        transition={{ delay: 1, duration: 0.5 }}
                     >
-                        <img src="/fourth-screen.png" alt="ValuuHub Services Details" className="w-full h-full object-contain" />
+                        <motion.div
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
+                            className="flex flex-col items-center"
+                        >
+                            <p className="mb-2 text-sm text-white">Scroll to meet our team</p>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 5V19M12 19L5 12M12 19L19 12"
+                                    stroke="white"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </motion.div>
                     </motion.div>
                 )}
-            </AnimatePresence>
+            </div>
+
+            {/* Team Section */}
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{
+                    opacity: showTeam ? 1 : 0,
+                    y: showTeam ? 0 : 100,
+                }}
+                transition={{ duration: 0.8 }}
+            >
+                <TeamSection />
+            </motion.div>
         </div>
     )
 }

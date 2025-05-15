@@ -1,6 +1,6 @@
 "use client"
 import { motion } from "framer-motion"
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
 
@@ -141,12 +141,15 @@ export default function ServicesDetail({
     const services = page === 1 ? servicesPage1 : servicesPage2
 
     return (
-        <div className="min-h-[calc(100vh-128px)] w-full py-12 px-6 md:px-12 bg-white text-black">
+        <div
+            className="min-h-[calc(100vh-128px)] w-full py-12 px-6 md:px-12 text-white"
+            style={{ background: "linear-gradient(to bottom, #03369B, #044CD9)" }}
+        >
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-4xl md:text-5xl font-bold mb-16 text-center"
+                className="text-4xl md:text-5xl font-extralight mb-16 text-center"
                 style={{ fontFamily: "Impact, sans-serif" }}
             >
                 Things We&apos;re Great At
@@ -164,7 +167,7 @@ export default function ServicesDetail({
                         onClick={onPrev}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 bg-blue-800 text-white py-2 px-4 rounded-full"
+                        className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full"
                     >
                         <ArrowLeft size={20} />
                         <span>Previous Services</span>
@@ -174,7 +177,7 @@ export default function ServicesDetail({
                         onClick={onNext}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 bg-blue-800 text-white py-2 px-4 rounded-full"
+                        className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full"
                     >
                         <span>More Services</span>
                         <ArrowRight size={20} />

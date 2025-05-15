@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
-import { ArrowLeft } from "lucide-react"
 import TeamSection from "./TeamSection"
 
 export default function TransitionScreen() {
@@ -38,29 +37,13 @@ export default function TransitionScreen() {
         }
     }, [router])
 
-    // Function to reload the page
-    const handleBackClick = () => {
-        window.location.reload()
-    }
-
     return (
         <div ref={containerRef} className="relative min-h-screen overflow-x-hidden">
-            {/* Back Button */}
-            <motion.button
-                className="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-gray-200 bg-opacity-80 backdrop-blur-sm text-black py-2 px-4 rounded-full hover:bg-gray-300 transition-all duration-300 shadow-lg"
-                onClick={handleBackClick}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+            {/* Orbit Screens - Updated to linear gradient background */}
+            <div
+                className="relative w-full h-screen overflow-hidden"
+                style={{ background: "linear-gradient(to bottom, #044CD9, #1C67FB)" }}
             >
-                <ArrowLeft size={18} />
-                <span>Back</span>
-            </motion.button>
-
-            {/* Orbit Screens */}
-            <div className="relative w-full h-screen overflow-hidden bg-blue-900">
                 <AnimatePresence>
                     {!showFourthScreen ? (
                         <motion.div
@@ -85,10 +68,11 @@ export default function TransitionScreen() {
                     )}
                 </AnimatePresence>
 
-                {/* Scroll indicator - positioned at the very bottom */}
+                {/* Scroll indicator - positioned at the very bottom - Updated gradient color to match new end color */}
                 {showFourthScreen && (
                     <motion.div
-                        className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center py-6 bg-gradient-to-t from-blue-900 to-transparent"
+                        className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center py-6"
+                        style={{ background: `linear-gradient(to top, #1C67FB, transparent)` }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1, duration: 0.5 }}

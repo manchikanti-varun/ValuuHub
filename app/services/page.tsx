@@ -16,7 +16,10 @@ export default function ServicesPage() {
     }
 
     return (
-        <main className="min-h-screen w-full bg-white text-black overflow-hidden">
+        <main
+            className="min-h-screen w-full text-white overflow-hidden"
+            style={{ background: "linear-gradient(to bottom, #03369B, #044CD9)" }}
+        >
             <Navbar />
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="w-full">
                 <ServicesDetail page={detailPage} onNext={handleNextPage} onPrev={handlePrevPage} />

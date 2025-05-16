@@ -1,25 +1,79 @@
 "use client"
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { useState, useRef } from "react"
+import { motion, useScroll } from "framer-motion"
 import TransitionScreen from "./TransitionScreen"
 
 export default function Hero() {
   const [showTransition, setShowTransition] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [spherePosition, setSpherePosition] = useState({ x: 0, y: 0 })
+  const [hideOriginalSphere, setHideOriginalSphere] = useState(false)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const sphereRef = useRef<HTMLDivElement>(null)
+  const transitionRef = useRef<HTMLDivElement>(null)
+
+  // Track scroll position for animations
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  })
 
   function handleGetInTouch() {
+    // Capture the current position of the sphere for animation
+    if (sphereRef.current) {
+      const rect = sphereRef.current.getBoundingClientRect()
+      setSpherePosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      })
+    }
+
+    // Immediately hide the original sphere
+    setHideOriginalSphere(true)
+    setIsAnimating(true)
     setShowTransition(true)
-    // Scroll to the transition section after a short delay
+
+    // Scroll to transition section with a much slower speed
     setTimeout(() => {
       const transitionSection = document.getElementById("transition-section")
       if (transitionSection) {
-        transitionSection.scrollIntoView({ behavior: "smooth" })
+        // Use a custom scroll function for slower scrolling
+        const startPosition = window.pageYOffset
+        const targetPosition = transitionSection.offsetTop
+        const distance = targetPosition - startPosition
+        const duration = 3000 // 3 seconds for scrolling (increased for smoother effect)
+        let start: number | null = null
+
+        function step(timestamp: number) {
+          if (!start) start = timestamp
+          const progress = timestamp - start
+          const percentage = Math.min(progress / duration, 1)
+
+          // Use easeInOutQuad easing function for smoother scrolling
+          const easeInOutQuad = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2)
+
+          window.scrollTo(0, startPosition + distance * easeInOutQuad(percentage))
+
+          if (progress < duration) {
+            window.requestAnimationFrame(step)
+          }
+        }
+
+        window.requestAnimationFrame(step)
       }
-    }, 100)
+    }, 300) // Longer delay before scrolling starts
+
+    // Show the original sphere again after the animation completes
+    setTimeout(() => {
+      setHideOriginalSphere(false)
+      setIsAnimating(false)
+    }, 5000)
   }
 
   return (
     <>
       <section
+        ref={heroRef}
         className="relative w-full text-white px-6 pt-16 pb-8 text-center overflow-hidden min-h-screen flex flex-col"
         style={{
           background: "linear-gradient(to bottom, #03369B, #044CD9)",
@@ -163,13 +217,30 @@ export default function Hero() {
                 </motion.button>
               </div>
 
-              {/* Sphere */}
+              {/* Sphere - hide when animation is in progress */}
               <motion.div
-                className="cursor-pointer flex items-center justify-center"
+                ref={sphereRef}
+                className={`cursor-pointer flex items-center justify-center ${hideOriginalSphere ? "opacity-0" : "opacity-100"}`}
                 onClick={handleGetInTouch}
                 whileHover={{
                   filter: "brightness(1.5) drop-shadow(0 0 40px rgba(255,255,255,1))",
                 }}
+                animate={
+                  !isAnimating
+                    ? {
+                      filter: [
+                        "brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.2))",
+                        "brightness(1.4) drop-shadow(0 0 30px rgba(255,255,255,0.9))",
+                        "brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.2))",
+                      ],
+                      transition: {
+                        repeat: Number.POSITIVE_INFINITY,
+                        duration: 1,
+                      },
+                    }
+                    : {}
+                }
+                transition={{ duration: 0.5 }} // Smooth transition for opacity
               >
                 <motion.img
                   src="./Frame 78.png"
@@ -177,17 +248,6 @@ export default function Hero() {
                   className="w-[800px] h-[800px] object-contain"
                   style={{
                     filter: "brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.7))",
-                  }}
-                  animate={{
-                    filter: [
-                      "brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.2))",
-                      "brightness(1.4) drop-shadow(0 0 30px rgba(255,255,255,0.9))",
-                      "brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.2))",
-                    ],
-                  }}
-                  transition={{
-                    repeat: Number.POSITIVE_INFINITY,
-                    duration: 1,
                   }}
                 />
               </motion.div>
@@ -198,8 +258,15 @@ export default function Hero() {
 
       {/* Transition Section */}
       {showTransition && (
-        <div id="transition-section" className="w-full">
-          <TransitionScreen />
+        <div id="transition-section" ref={transitionRef} className="w-full">
+          <TransitionScreen
+            isAnimating={isAnimating}
+            spherePosition={spherePosition}
+            onAnimationComplete={() => {
+              setHideOriginalSphere(false)
+              setIsAnimating(false)
+            }}
+          />
         </div>
       )}
     </>

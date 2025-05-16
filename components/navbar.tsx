@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <header className="w-full text-white" style={{ backgroundColor: "#03369B" }}>
-      <div className="relative flex items-center justify-center h-32">
+      <div className="relative flex items-center justify-center h-24">
         {/* Decorative Lines */}
         <div
           className="absolute inset-0 bg-center bg-no-repeat bg-contain z-0"

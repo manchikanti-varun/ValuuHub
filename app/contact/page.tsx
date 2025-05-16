@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
 import type React from "react"
 import { useState } from "react"
-import { Facebook, Twitter, Instagram } from 'lucide-react'
+import { Facebook, Twitter, Instagram } from "lucide-react"
 import Navbar from "@/components/navbar"
 
 export default function ContactPage() {
@@ -41,10 +41,15 @@ export default function ContactPage() {
                 <div className="absolute bottom-0 right-16 w-20 h-12 bg-[#8BAEFF] opacity-70 rounded-none blur-sm"></div>
 
                 {/* White content box with image background and shadow */}
-                <div className="max-w-4xl mx-auto bg-white p-8 relative z-10 shadow-2xl rounded-md overflow-hidden">
+                <div
+                    className="max-w-4xl mx-auto bg-white p-8 relative z-10 rounded-md overflow-hidden"
+                    style={{
+                        boxShadow: "0 10px 30px -5px rgba(0, 0, 0, 0.3), 0 0 20px 0 rgba(0, 57, 181, 0.2)",
+                    }}
+                >
                     {/* Background image */}
                     <img
-                        src="map1.png" 
+                        src="map1.png"
                         alt="Decorative"
                         className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0"
                     />

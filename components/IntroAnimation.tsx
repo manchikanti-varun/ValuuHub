@@ -22,25 +22,26 @@ export default function IntroAnimation({ onAnimationComplete }: { onAnimationCom
           style={{ backgroundImage: 'url("/textures/paper-texture.png")' }}
         />
 
-        {/* Text with curtain animation */}
-        <div className="relative z-10 overflow-hidden h-[140px] flex items-center justify-center">
+        {/* Text with curtain animation - Matched with Hero component */}
+        <div className="relative z-10 overflow-hidden flex flex-col items-center justify-center h-[20vh] pt-16">
           {/* VALUU HUB Text */}
           <motion.h1
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 2, ease: "easeOut" }}
-            className="text-center"
+            className="text-center mb-2"
             style={{
               fontFamily: "BankGothic RUSS, BankGothic, Impact, sans-serif",
-              fontSize: "clamp(60px, 10vw, 120px)",
+              fontSize: "110px",
               fontWeight: 400,
               letterSpacing: "0.2em",
               background: "linear-gradient(to bottom, #819ED9, #FFFFFF)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              lineHeight: "1",
+              lineHeight: "100%",
               zIndex: 1,
               position: "relative",
+              textShadow: "0 0 10px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.2)",
             }}
           >
             VALUU HUB

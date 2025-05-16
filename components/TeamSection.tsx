@@ -136,17 +136,9 @@ export default function TeamSection() {
 
     return (
         <section
-            className="text-white py-24 px-6 relative"
+            className="text-white py-16 px-6 relative"
             style={{ background: "linear-gradient(to bottom, #1C67FB, #5A90FC)" }}
         >
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-full">
-                <div className="max-w-6xl mx-auto relative">
-                    <div className="absolute left-0 top-0 w-1/4 h-1 bg-white opacity-30"></div>
-                    <div className="absolute right-0 top-0 w-1/4 h-1 bg-white opacity-30"></div>
-                </div>
-            </div>
-
             <div className="max-w-5xl mx-auto">
                 <h2 className="text-4xl font-bold text-center mb-20">OUR TEAM</h2>
 

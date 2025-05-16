@@ -35,7 +35,7 @@ export default function TransitionScreen() {
     }, [router])
 
     return (
-        <div ref={containerRef} className="relative min-h-screen overflow-x-hidden">
+        <div ref={containerRef} className="relative min-h-screen overflow-x-hidden ">
             <div
                 className="relative w-full h-screen overflow-hidden"
                 style={{ background: "linear-gradient(to bottom, #044CD9, #1C67FB)" }}
@@ -77,11 +77,11 @@ export default function TransitionScreen() {
                             transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
                             className="flex flex-col items-center"
                         >
-                            <p className="mb-2 text-sm text-white">Scroll to meet our team</p>
+                            <p className="mb-2 text-sm text-black">Scroll to meet our team</p>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M12 5V19M12 19L5 12M12 19L19 12"
-                                    stroke="white"
+                                    stroke="black"
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"

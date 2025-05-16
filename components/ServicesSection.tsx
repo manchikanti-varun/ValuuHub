@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Image from "next/image"
@@ -55,7 +55,7 @@ const servicesPage1: Service[] = [
     },
 ]
 
-// Second page services
+// Second page services - Updated to match the image
 const servicesPage2: Service[] = [
     {
         id: "content-creation",
@@ -95,9 +95,22 @@ const servicesPage2: Service[] = [
     },
 ]
 
+// Combine all service images for cycling
+const allServiceImages = [
+    ...servicesPage1.map((service) => service.imageUrl),
+    ...servicesPage2.map((service) => service.imageUrl),
+]
+
 // Service Card Component
-function ServiceCard({ service, index }: { service: Service; index: number }) {
+function ServiceCard({
+    service,
+    index,
+    currentImageIndex,
+}: { service: Service; index: number; currentImageIndex: number }) {
     const [isHovered, setIsHovered] = useState(false)
+
+    // Get the current image to display based on the shared index
+    const displayImageUrl = allServiceImages[currentImageIndex]
 
     return (
         <motion.div
@@ -114,10 +127,24 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            {/* Image container - only visible on hover */}
+            {/* Image container - always visible with cycling images */}
             <div className="relative h-48 w-full overflow-hidden">
+                {/* Service's own image shown on hover */}
                 <div className={`absolute inset-0 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}>
                     <Image src={service.imageUrl || "/placeholder.svg"} alt={service.title} fill className="object-contain p-4" />
+                </div>
+
+                {/* Cycling image shown when not hovered */}
+                <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? "opacity-0" : "opacity-100"}`}>
+                    <motion.div
+                        key={currentImageIndex} // Change key to force re-render on image change
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <Image src={displayImageUrl || "/placeholder.svg"} alt="Service" fill className="object-contain p-4" />
+                    </motion.div>
                 </div>
             </div>
 
@@ -133,7 +160,17 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
 export default function ServicesSection() {
     const [detailPage, setDetailPage] = useState(1)
+    const [currentImageIndex, setCurrentImageIndex] = useState(0)
     const router = useRouter()
+
+    // Set up the image cycling timer
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % allServiceImages.length)
+        }, 2000) // Change image every 2 seconds
+
+        return () => clearInterval(interval)
+    }, [])
 
     const handleNextPage = () => {
         setDetailPage(2)
@@ -143,9 +180,7 @@ export default function ServicesSection() {
         setDetailPage(1)
     }
 
-    const handleViewAllServices = () => {
-        router.push("/services")
-    }
+    const services = detailPage === 1 ? servicesPage1 : servicesPage2
 
     return (
         <section
@@ -164,12 +199,12 @@ export default function ServicesSection() {
             </motion.h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-                {(detailPage === 1 ? servicesPage1 : servicesPage2).map((service, index) => (
-                    <ServiceCard key={service.id} service={service} index={index} />
+                {services.map((service, index) => (
+                    <ServiceCard key={service.id} service={service} index={index} currentImageIndex={currentImageIndex} />
                 ))}
             </div>
 
-            <div className="flex justify-between mt-12 max-w-7xl mx-auto">
+            <div className="flex justify-center mt-12 max-w-7xl mx-auto">
                 {detailPage === 2 ? (
                     <motion.button
                         onClick={handlePrevPage}
@@ -181,27 +216,13 @@ export default function ServicesSection() {
                         <span>Previous Services</span>
                     </motion.button>
                 ) : (
-                    <div></div> // Empty div to maintain flex spacing
-                )}
-
-                {detailPage === 1 ? (
                     <motion.button
                         onClick={handleNextPage}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full"
                     >
-                        <span>More Services</span>
-                        <ArrowRight size={20} />
-                    </motion.button>
-                ) : (
-                    <motion.button
-                        onClick={handleViewAllServices}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full"
-                    >
-                        <span>View All Services</span>
+                        <span>Next Services</span>
                         <ArrowRight size={20} />
                     </motion.button>
                 )}

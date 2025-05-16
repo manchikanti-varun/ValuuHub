@@ -19,7 +19,7 @@ export default function Footer() {
                     {/* Top section with logo and contact button */}
                     <div className="flex flex-col md:flex-row justify-between items-center mb-8">
                         {/* Logo */}
-                        <div className="mb-6 md:mb-0">
+                        <div className="mb-6 md:mb-0 ml-4 md:ml-16">
                             <Link href="/" className="block">
                                 <motion.div whileHover={{ scale: 1.05 }} className="cursor-pointer">
                                     <Image src="/ValuuHubLogo.png" alt="ValuuHub Logo" width={120} height={120} />
@@ -39,26 +39,21 @@ export default function Footer() {
                         </Link>
                     </div>
 
-                    {/* Navigation Links - Centered and starting at 30% from left */}
-                    <div className="flex flex-col items-center md:items-start mb-12">
-                        <div className="w-full pl-0 md:pl-[30%]">
-                            <div className="flex flex-col space-y-6">
-                                <nav className="flex justify-center md:justify-start">
-                                    <span className="text-blue-900 mx-2">|</span>
-                                    <NavItem href="/" label="Home" />
-                                    <span className="text-blue-900 mx-11">|</span>
-                                    <NavItem href="/services" label="Services" />
-                                    <span className="text-blue-900 mx-6">|</span>
-                                    <NavItem href="/our-mission" label="Our Mission" />
-                                </nav>
-                                <nav className="flex justify-center md:justify-start">
-                                    <span className="text-blue-900 mx-2">|</span>
-                                    <NavItem href="/about" label="About us" />
-                                    <span className="text-blue-900 mx-6">|</span>
-                                    <NavItem href="/blogs" label="Blogs" />
-                                </nav>
+                    {/* Navigation Links - All in a single line with equal spacing */}
+                    <div className="w-full mb-12 overflow-x-auto">
+                        <nav className="flex justify-center items-center whitespace-nowrap min-w-max mx-auto">
+                            <div className="flex items-center space-x-6">
+                                <NavItem href="/" label="Home" />
+                                <NavDivider />
+                                <NavItem href="/services" label="Services" />
+                                <NavDivider />
+                                <NavItem href="/our-mission" label="Our Mission" />
+                                <NavDivider />
+                                <NavItem href="/about" label="About us" />
+                                <NavDivider />
+                                <NavItem href="/blogs" label="Blogs" />
                             </div>
-                        </div>
+                        </nav>
                     </div>
 
                     {/* Tagline */}
@@ -98,6 +93,11 @@ function NavItem({ href, label }: { href: string; label: string }) {
             {label}
         </Link>
     )
+}
+
+// Navigation Divider Component
+function NavDivider() {
+    return <span className="text-blue-900">|</span>
 }
 
 // Social Icon Component

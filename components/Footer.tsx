@@ -12,7 +12,7 @@ export default function Footer() {
             <div
                 className="w-full py-12 px-6 md:px-12"
                 style={{
-                    background: "linear-gradient(to bottom, #044CD9, #5A90FC)",
+                    background: "linear-gradient(to bottom, #5A90FC, #FFFFFF)",
                 }}
             >
                 <div className="max-w-7xl mx-auto">

@@ -21,7 +21,7 @@ export default function TransitionScreen({
         // Show the orbit services image after a delay
         const timer = setTimeout(() => {
             setShowFourthScreen(true)
-        }, 500)
+        }, 3500)
 
         // Start animation sequence if isAnimating is true
         if (isAnimating) {

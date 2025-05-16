@@ -76,8 +76,8 @@ export default function Hero() {
         ref={heroRef}
         className="relative w-full text-white px-6 pt-16 pb-8 text-center overflow-hidden min-h-screen flex flex-col"
         style={{
-          background: "linear-gradient(to bottom, #03369B, #044CD9)",
-        }}
+          backgroundColor: "#044CD9",
+        }}        
       >
         {/* Background large outline text with animations */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">

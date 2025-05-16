@@ -175,7 +175,7 @@ export default function TransitionScreen({
 
             <div
                 className="relative w-full h-screen overflow-hidden"
-                style={{ background: "linear-gradient(to bottom, #044CD9, #1C67FB)" }}
+                style={{ backgroundColor: "#044CD9" }}
             >
                 <AnimatePresence>
                     {!showFourthScreen ? (

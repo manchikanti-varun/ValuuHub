@@ -1,15 +1,15 @@
-"use client"
-import { useRouter } from "next/navigation"
-import { motion } from "framer-motion"
-import Image from "next/image"
+"use client";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function AboutPage() {
-    const router = useRouter()
+    const router = useRouter();
 
     const handleTeamClick = () => {
         // Navigate to the team section
-        router.push("/team")
-    }
+        router.push("/team");
+    };
 
     return (
         <main className="min-h-screen w-full overflow-hidden bg-gray-300 flex flex-col">
@@ -17,7 +17,8 @@ export default function AboutPage() {
             <div
                 className="relative w-full flex-grow px-6 md:px-12 py-16 text-white overflow-hidden"
                 style={{
-                    background: "linear-gradient(to bottom, #03369B, #1C67FB)",
+                    // Updated background color
+                    background: "#044CD9",
                 }}
             >
                 {/* Globe wireframe graphic - top left */}
@@ -107,5 +108,5 @@ export default function AboutPage() {
                 </div>
             </div>
         </main>
-    )
+    );
 }

@@ -33,7 +33,7 @@ export default function ContactPage() {
             <Navbar />
 
             {/* Main content area with royal blue background */}
-            <div className="relative w-full min-h-[calc(100vh-128px)] bg-gradient-to-b from-[#03369B] to-[#011235] py-16">
+            <div className="relative w-full min-h-[calc(100vh-128px)] bg-[#044CD9] py-16">
                 {/* Decorative blue rectangles */}
                 <div className="absolute top-14 left-0 w-16 h-16 bg-[#1C67FB] opacity-70 rounded-none blur-sm"></div>
                 <div className="absolute top-10 right-48 w-32 h-16 bg-[#1C67FB] opacity-70 rounded-none blur-sm"></div>

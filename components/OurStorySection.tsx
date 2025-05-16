@@ -14,8 +14,8 @@ export default function OurStorySection() {
         <section
             className="relative w-full px-6 md:px-12 py-16 text-white overflow-hidden"
             style={{
-                background: "linear-gradient(to bottom, #03369B, #1C67FB)",
-            }}
+                backgroundColor: "#044CD9",
+            }}              
         >
             {/* Globe wireframe graphic - top left */}
             <div className="absolute top-0 left-0">

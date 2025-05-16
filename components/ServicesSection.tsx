@@ -185,7 +185,7 @@ export default function ServicesSection() {
     return (
         <section
             className="w-full py-16 px-6 md:px-12 text-white"
-            style={{ background: "linear-gradient(to bottom, #03369B, #044CD9)" }}
+            style={{ backgroundColor: "#044CD9" }}
         >
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}

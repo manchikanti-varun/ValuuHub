@@ -3,6 +3,10 @@ import { useState, useEffect } from "react"
 import Navbar from "../components/navbar"
 import Hero from "../components/Hero"
 import IntroAnimation from "../components/IntroAnimation"
+import OurStorySection from "@/components/OurStorySection"
+import ServicesOrbit from "@/components/ServiceOrbit"
+import ServicesSection from "@/components/ServicesSection"
+import TeamSection from "@/components/TeamSection"
 
 export default function HomePage() {
   const [showIntro, setShowIntro] = useState(true)
@@ -29,6 +33,11 @@ export default function HomePage() {
         <>
           <Navbar />
           <Hero />
+          {/* Services Section */}
+          <ServicesSection />
+
+          {/* Our Story Section */}
+          <OurStorySection />
         </>
       )}
     </main>

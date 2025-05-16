@@ -13,21 +13,9 @@ type TeamMember = {
     image: string
     linkedin: string
     instagram: string
-    position: "top" | "bottom-left" | "bottom-right"
 }
 
 const teamMembers: TeamMember[] = [
-    {
-        id: "md-afrid",
-        name: "MD Afrid",
-        title: "CD",
-        description:
-            "brings brands to life with bold visuals and breakthrough ideas. He's the eye behind every scroll-stopping moment that makes Valuu Hub unforgettable.",
-        image: "Afrid image.png",
-        linkedin: "https://www.linkedin.com/in/afrid-md-afrid-155281309/",
-        instagram: "https://www.instagram.com/afridaffumoh/",
-        position: "bottom-left",
-    },
     {
         id: "ds-sharma",
         name: "D S Sharma",
@@ -37,7 +25,6 @@ const teamMembers: TeamMember[] = [
         image: "CEO.png",
         linkedin: "https://www.linkedin.com/in/dorbala-sadanand-sharma-43a914259/",
         instagram: "https://www.instagram.com/sadanand_sharmaa/",
-        position: "top",
     },
     {
         id: "m-sathwik",
@@ -48,25 +35,36 @@ const teamMembers: TeamMember[] = [
         image: "Sathwik image.png",
         linkedin: "https://www.linkedin.com/in/modem-sathwik-ba754b29b/",
         instagram: "https://www.instagram.com/lucckkyyy/",
-        position: "bottom-right",
+    },
+    {
+        id: "md-afrid",
+        name: "MD Afrid",
+        title: "CD",
+        description:
+            "brings brands to life with bold visuals and breakthrough ideas. He's the eye behind every scroll-stopping moment that makes Valuu Hub unforgettable.",
+        image: "Afrid image.png",
+        linkedin: "https://www.linkedin.com/in/afrid-md-afrid-155281309/",
+        instagram: "https://www.instagram.com/afridaffumoh/",
     },
 ]
 
-function TeamMemberCard({ member }: { member: TeamMember }) {
+function TeamMemberCard({ member, index }: { member: TeamMember; index: number }) {
     const [isHovered, setIsHovered] = useState(false)
 
     return (
         <motion.div
             className="relative h-full w-full"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            whileHover={{ y: -10 }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             {/* Card with improved design */}
             <div
-                className="relative rounded-3xl overflow-hidden h-full shadow-lg"
+                className="relative rounded-3xl overflow-hidden h-full shadow-lg transform transition-transform duration-300"
                 style={{ maxWidth: "320px", margin: "0 auto" }}
             >
                 {/* Image container with rounded corners */}
@@ -129,11 +127,6 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
 }
 
 export default function TeamSection() {
-    // Separate team members by position
-    const topMember = teamMembers.find((member) => member.position === "top")
-    const bottomLeftMember = teamMembers.find((member) => member.position === "bottom-left")
-    const bottomRightMember = teamMembers.find((member) => member.position === "bottom-right")
-
     return (
         <section
             className="text-white py-16 px-6 relative"
@@ -142,31 +135,11 @@ export default function TeamSection() {
             <div className="max-w-5xl mx-auto">
                 <h2 className="text-4xl font-bold text-center mb-20">OUR TEAM</h2>
 
-                <div className="flex flex-col items-center justify-center">
-                    {/* Top member (CEO) */}
-                    {topMember && (
-                        <div className="w-full max-w-xs mb-24">
-                            <TeamMemberCard member={topMember} />
-                        </div>
-                    )}
-
-                    {/* Bottom row with two members */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-full max-w-4xl mx-auto">
-                        {bottomLeftMember && (
-                            <div className="flex justify-center">
-                                <div className="w-full max-w-xs">
-                                    <TeamMemberCard member={bottomLeftMember} />
-                                </div>
-                            </div>
-                        )}
-                        {bottomRightMember && (
-                            <div className="flex justify-center">
-                                <div className="w-full max-w-xs">
-                                    <TeamMemberCard member={bottomRightMember} />
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                {/* Horizontal row of team members */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto">
+                    {teamMembers.map((member, index) => (
+                        <TeamMemberCard key={member.id} member={member} index={index} />
+                    ))}
                 </div>
 
                 <p className="text-center mt-20 text-lg">The minds driving strategy, execution, and creativity at Valuu Hub.</p>

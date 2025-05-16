@@ -259,46 +259,7 @@ export default function TransitionScreen({
                         </motion.div>
                     )}
                 </AnimatePresence>
-
-                {showFourthScreen && (
-                    <motion.div
-                        className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center py-6"
-                        style={{ background: `linear-gradient(to top, #1C67FB, transparent)` }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1, duration: 0.5 }}
-                    >
-                        <motion.div
-                            animate={{ y: [0, 10, 0] }}
-                            transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
-                            className="flex flex-col items-center"
-                        >
-                            <p className="mb-2 text-sm text-black">Scroll to meet our team</p>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M12 5V19M12 19L5 12M12 19L19 12"
-                                    stroke="black"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                        </motion.div>
-                    </motion.div>
-                )}
             </div>
-
-            {/* Team Section */}
-            <motion.div
-                initial={{ opacity: 0, y: 100 }}
-                animate={{
-                    opacity: showTeam ? 1 : 0,
-                    y: showTeam ? 0 : 100,
-                }}
-                transition={{ duration: 0.8 }}
-            >
-                <TeamSection />
-            </motion.div>
         </div>
     )
 }

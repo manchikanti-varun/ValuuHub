@@ -12,7 +12,7 @@ export default function Footer() {
             <div
                 className="w-full py-12 px-6 md:px-12"
                 style={{
-                    background: "linear-gradient(to bottom, #1C67FB, #5A90FC)",
+                    background: "linear-gradient(to bottom, #044CD9, #1C67FB)",
                 }}
             >
                 <div className="max-w-7xl mx-auto">
@@ -30,9 +30,13 @@ export default function Footer() {
                         {/* Contact Button */}
                         <Link href="/contact">
                             <motion.button
-                                whileHover={{ scale: 1.05 }}
+                                whileHover={{
+                                    scale: 1.05,
+                                    backgroundColor: "#ffffff",
+                                    color: "#044CD9",
+                                }}
                                 whileTap={{ scale: 0.95 }}
-                                className="bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg"
+                                className="bg-blue-300 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors duration-300"
                             >
                                 CONTACT US
                             </motion.button>
@@ -57,7 +61,7 @@ export default function Footer() {
                     </div>
 
                     {/* Tagline */}
-                    <div className="mb-12">
+                    <div className="mb-12 text-center">
                         <h2 className="text-lg md:text-2xl font-bold tracking-wide text-left text-blue-900">WE BUILD | WE BRAND</h2>
                     </div>
 

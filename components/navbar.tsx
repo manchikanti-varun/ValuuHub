@@ -12,7 +12,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="w-full text-white" style={{ backgroundColor: "#03369B" }}>
+    <header className="w-full text-white" style={{ background: "linear-gradient(to bottom, #03369B, #044CD9)" }}>
       <div className="relative flex items-center justify-center h-24">
         {/* Decorative Lines */}
         <div

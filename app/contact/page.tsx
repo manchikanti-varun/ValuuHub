@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Facebook, Twitter, Instagram } from "lucide-react"
+import { Instagram, Facebook, Linkedin } from "lucide-react"
 import Navbar from "@/components/navbar"
 import { submitContactForm } from "@/app/actions/contact-form"
 
@@ -84,13 +84,14 @@ export default function ContactPage() {
                                 <div className="space-y-6">
                                     <div>
                                         <h3 className="text-lg font-medium mb-2">Address</h3>
-                                        <p className="text-gray-600">
-                                            Hyderabad, Telangana
-                                            <br />
+                                        <address className="not-italic text-gray-600 leading-relaxed">
+                                            34-A, Road No. 70<br />
+                                            Near HDFC Bank, Journalist Colony<br />
+                                            Jubilee Hills, Hyderabad<br />
+                                            Telangana - 500033<br />
                                             India
-                                        </p>
+                                        </address>
                                     </div>
-
                                     <div>
                                         <h3 className="text-lg font-medium mb-2">Contact</h3>
                                         <p className="text-gray-600 mb-1">valuuhub@gmail.com</p>
@@ -105,10 +106,9 @@ export default function ContactPage() {
                                             9:30 AM – 6:00 PM
                                         </p>
                                     </div>
-
                                     <div className="flex space-x-4 pt-4">
                                         <a
-                                            href="#"
+                                            href="https://www.facebook.com/valuuhubsolut"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label="Facebook"
@@ -117,16 +117,7 @@ export default function ContactPage() {
                                             <Facebook size={20} />
                                         </a>
                                         <a
-                                            href="#"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label="Twitter"
-                                            className="text-[#0039B5] hover:text-[#1C67FB] transition-colors"
-                                        >
-                                            <Twitter size={20} />
-                                        </a>
-                                        <a
-                                            href="#"
+                                            href="https://www.instagram.com/valuuhub/"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label="Instagram"
@@ -134,7 +125,17 @@ export default function ContactPage() {
                                         >
                                             <Instagram size={20} />
                                         </a>
+                                        <a
+                                            href="https://www.linkedin.com/company/valuu-hub-solutions"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="LinkedIn"
+                                            className="text-[#0039B5] hover:text-[#1C67FB] transition-colors"
+                                        >
+                                            <Linkedin size={20} />
+                                        </a>
                                     </div>
+
                                 </div>
                             </div>
 

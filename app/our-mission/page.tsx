@@ -13,16 +13,16 @@ export default function OurMission() {
 
     return (
         <main className="min-h-screen w-full text-white overflow-hidden" style={{ backgroundColor: "#044CD9" }}>
-            <Navbar/>
-            <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 md:px-8 py-16">
+            <Navbar />
+            <div className="w-full min-h-screen flex flex-col items-start justify-center px-4 md:px-8 py-16">
                 <motion.div
-                    className="max-w-5xl mx-auto text-center"
+                    className="max-w-5xl mx-auto"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8 }}
                 >
                     <motion.h1
-                        className="text-5xl md:text-5xl font-bold mb-16 tracking-wide"
+                        className="text-5xl md:text-5xl font-bold mb-16 tracking-wide text-left"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8 }}
@@ -31,7 +31,7 @@ export default function OurMission() {
                     </motion.h1>
 
                     <motion.div
-                        className="text-xl md:text-xl leading-relaxed text-center"
+                        className="text-xl md:text-xl leading-relaxed text-left"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2, duration: 0.8 }}

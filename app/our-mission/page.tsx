@@ -22,7 +22,7 @@ export default function OurMission() {
                     transition={{ duration: 0.8 }}
                 >
                     <motion.h1
-                        className="text-5xl md:text-5xl font-bold mb-16 tracking-wide text-left"
+                        className="text-5xl md:text-5xl font-bold mb-16 tracking-wide text-center"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8 }}

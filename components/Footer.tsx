@@ -112,7 +112,7 @@ function SocialIcon({ href, icon }: { href: string; icon: React.ReactNode }) {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.2 }}
-            className="text-blue-900 hover:text-white transition-colors duration-300"
+            className="text-blue-900 hover:text-black transition-colors duration-300"
         >
             {icon}
         </motion.a>

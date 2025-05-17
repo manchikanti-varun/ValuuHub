@@ -78,9 +78,9 @@ export default function Footer() {
                                 <p className="text-xl font-medium text-blue-900">Your Growth, Our Mission.</p>
                             </div>
                             <div className="md:w-1/3 flex justify-center md:justify-end space-x-6">
-                                <SocialIcon href="https://instagram.com" icon={<Instagram size={20} />} />
-                                <SocialIcon href="https://linkedin.com" icon={<Linkedin size={20} />} />
-                                <SocialIcon href="https://facebook.com" icon={<Facebook size={20} />} />
+                                <SocialIcon href="https://www.instagram.com/valuuhub/" icon={<Instagram size={20} />} />
+                                <SocialIcon href="https://www.linkedin.com/company/valuu-hub-solutions/" icon={<Linkedin size={20} />} />
+                                <SocialIcon href="https://www.facebook.com/valuuhubsolut" icon={<Facebook size={20} />} />
                             </div>
                         </div>
                     </div>

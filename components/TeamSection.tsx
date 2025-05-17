@@ -34,7 +34,7 @@ const teamMembers: TeamMember[] = [
             "ensures flawless execution and operational excellence. His attention to detail and process-driven approach keeps Valuu Hub delivering exceptional results.",
         image: "Sathwik image.png",
         linkedin: "https://www.linkedin.com/in/modem-sathwik-ba754b29b/",
-        instagram: "https://www.instagram.com/lucckkyyy/",
+        instagram: "https://www.instagram.com/_lucckkyyy_/",
     },
     {
         id: "md-afrid",

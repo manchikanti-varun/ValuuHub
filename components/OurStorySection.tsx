@@ -58,7 +58,7 @@ export default function OurStorySection() {
                     className="space-y-8 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto"
                 >
                     <p>
-                        Valuu Hub isn't your typical digital marketing agency — we're a team that lives and breathes brand growth.
+                        Valuu Hub isn’t just a digital marketing agency we’re a team that lives and breathes brand growth.
                     </p>
 
                     <p>

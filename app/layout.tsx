@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
+import { Analytics } from "@vercel/analytics/next"
 
 // Import fonts
 import { inter, poppins, bankGothic } from "./fonts"
@@ -9,15 +10,10 @@ import AnimatedPointer from "@/components/AnimatedPointer"
 
 export const metadata: Metadata = {
   title: "ValuuHub",
-  description: "ValuuHub - Build Brand | Think Valuu",
+  description: "ValuuHub - WE BUILD | WE BRAND ",
   generator: "ValuuHub",
   icons: {
     icon: [{ url: "/favicon.ico" }, { url: "/ValuuHubLogo.png", type: "image/png", sizes: "32x32" }],
-    apple: {
-      url: "/apple-icon.png",
-      sizes: "180x180",
-      type: "image/png",
-    },
   },
 }
 

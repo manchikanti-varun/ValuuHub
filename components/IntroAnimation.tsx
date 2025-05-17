@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 
 export default function IntroAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(() => onAnimationComplete(), 5000)
+    const timer = setTimeout(() => onAnimationComplete(), 2000)
     return () => clearTimeout(timer)
   }, [onAnimationComplete])
 
@@ -35,13 +35,12 @@ export default function IntroAnimation({ onAnimationComplete }: { onAnimationCom
               fontSize: "110px",
               fontWeight: 400,
               letterSpacing: "0.2em",
-              background: "linear-gradient(to bottom, #819ED9, #FFFFFF)",
+              background: "linear-gradient(to bottom, #03369B, #FFFFFF)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               lineHeight: "100%",
               zIndex: 1,
               position: "relative",
-              textShadow: "0 0 10px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.2)",
             }}
           >
             VALUU HUB

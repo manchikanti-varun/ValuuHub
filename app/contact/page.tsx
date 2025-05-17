@@ -4,6 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { Facebook, Twitter, Instagram } from "lucide-react"
 import Navbar from "@/components/navbar"
+import { submitContactForm } from "@/app/actions/contact-form"
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -11,6 +12,11 @@ export default function ContactPage() {
         email: "",
         message: "",
     })
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submitStatus, setSubmitStatus] = useState<{
+        success?: boolean
+        message?: string
+    }>({})
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
@@ -20,11 +26,25 @@ export default function ContactPage() {
         }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        console.log("Form submitted:", formData)
-        setFormData({ name: "", email: "", message: "" })
-        alert("Thank you for your message! We'll get back to you soon.")
+        setIsSubmitting(true)
+
+        try {
+            const result = await submitContactForm(formData)
+            setSubmitStatus(result)
+
+            if (result.success) {
+                setFormData({ name: "", email: "", message: "" })
+            }
+        } catch (error) {
+            setSubmitStatus({
+                success: false,
+                message: "An unexpected error occurred. Please try again.",
+            })
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -167,11 +187,23 @@ export default function ContactPage() {
                                         />
                                     </div>
 
+                                    {/* Status message */}
+                                    {submitStatus.message && (
+                                        <div
+                                            className={`p-3 rounded ${submitStatus.success ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                                                }`}
+                                        >
+                                            {submitStatus.message}
+                                        </div>
+                                    )}
+
                                     <button
                                         type="submit"
-                                        className="w-full py-3 px-6 bg-[#0039B5] hover:bg-[#1C67FB] transition-colors text-white font-medium"
+                                        disabled={isSubmitting}
+                                        className={`w-full py-3 px-6 bg-[#0039B5] hover:bg-[#1C67FB] transition-colors text-white font-medium ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+                                            }`}
                                     >
-                                        SEND MESSAGE
+                                        {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                                     </button>
                                 </form>
                             </div>

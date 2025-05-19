@@ -33,6 +33,30 @@ const clientsData = {
             author: "Marketing Director, Thoothukudi",
         },
     },
+    rivora: {
+        name: "Rivora The Cafe",
+        logo: "/clients/Rivora-The-Cafe.png",
+        description: "Client since 2025",
+        industry: "F&B",
+        about: "A vintage-themed cafe known for its nostalgic charm and cozy ambiance.",
+        services: ["Social Media Marketing", "Influencer Marketing", "Content Creation", "Branding"],
+        socialMedia: {
+            Instagram: "https://www.instagram.com/cafe_rivora?igsh=MWsxbWY4Z2h2Nnp0MQ==",
+        },
+        projects: [
+            {
+                title: "Digital Growth Campaign",
+                description: "A tailored digital strategy to enhance Rivora's local presence and visual identity.",
+                image: "/clients/Rivora-The-Cafe.png",
+                year: "2025",
+            },
+        ],
+        testimonial: {
+            quote:
+                "Working with Valuu Hub was an incredible experience. The team understood our brand and brought it to life online in the most authentic and creative way.",
+            author: "Founder, Rivora The Cafe",
+        },
+    }
 }
 
 export default function ClientDetailPage() {
@@ -42,7 +66,6 @@ export default function ClientDetailPage() {
 
     useEffect(() => {
         if (clientId && typeof clientId === "string") {
-            // In a real application, you would fetch this data from an API
             const clientData = clientsData[clientId as keyof typeof clientsData]
             setClient(clientData)
             setLoading(false)
@@ -91,11 +114,9 @@ export default function ClientDetailPage() {
                         Back to Clients
                     </Link>
 
-                    {/* Client Header */}
                     <div className="bg-white rounded-lg p-8 mb-8 shadow-lg">
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="md:w-1/3 flex justify-center mb-6 md:mb-0">
-                                {/* Placeholder for client logo */}
                                 <div className="relative w-48 h-48 bg-white rounded-lg shadow-md">
                                     <Image
                                         src={client.logo || "/placeholder.svg"}
@@ -124,42 +145,22 @@ export default function ClientDetailPage() {
 
                                 <div className="flex space-x-4">
                                     {client.socialMedia.instagram && (
-                                        <a
-                                            href={client.socialMedia.instagram}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-800 hover:text-blue-600 transition-colors"
-                                        >
+                                        <a href={client.socialMedia.instagram} target="_blank" rel="noopener noreferrer" className="text-blue-800 hover:text-blue-600 transition-colors">
                                             <Instagram size={24} />
                                         </a>
                                     )}
                                     {client.socialMedia.facebook && (
-                                        <a
-                                            href={client.socialMedia.facebook}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-800 hover:text-blue-600 transition-colors"
-                                        >
+                                        <a href={client.socialMedia.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-800 hover:text-blue-600 transition-colors">
                                             <Facebook size={24} />
                                         </a>
                                     )}
                                     {client.socialMedia.linkedin && (
-                                        <a
-                                            href={client.socialMedia.linkedin}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-800 hover:text-blue-600 transition-colors"
-                                        >
+                                        <a href={client.socialMedia.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-800 hover:text-blue-600 transition-colors">
                                             <Linkedin size={24} />
                                         </a>
                                     )}
                                     {client.socialMedia.website && (
-                                        <a
-                                            href={client.socialMedia.website}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-800 hover:text-blue-600 transition-colors"
-                                        >
+                                        <a href={client.socialMedia.website} target="_blank" rel="noopener noreferrer" className="text-blue-800 hover:text-blue-600 transition-colors">
                                             <Globe size={24} />
                                         </a>
                                     )}

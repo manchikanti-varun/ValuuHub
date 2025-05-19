@@ -13,6 +13,13 @@ const clients = [
         logo: "/clients/Thoothukudi-Cafe.png",
         description: "Client since 2025",
         industry: "F&B",
+    },
+    {
+        id: "rivora",
+        name: "Rivora The Cafe",
+        logo: "/clients/Rivora-The-Cafe.png",
+        description: "Client since 2025",
+        industry: "F&B",
     }
 ]
 

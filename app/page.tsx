@@ -5,6 +5,7 @@ import Hero from "../components/Hero"
 import IntroAnimation from "../components/IntroAnimation"
 import OurStorySection from "@/components/OurStorySection"
 import ServicesSection from "@/components/ServicesSection"
+import ClientCarousel from "@/components/ClientCarousel"
 
 export default function HomePage() {
   const [showIntro, setShowIntro] = useState(true)
@@ -22,6 +23,7 @@ export default function HomePage() {
           <Navbar />
           <Hero />
           <ServicesSection />
+          <ClientCarousel />
           <OurStorySection />
         </>
       )}

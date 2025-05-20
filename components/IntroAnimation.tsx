@@ -1,14 +1,32 @@
 "use client"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 export default function IntroAnimation({ onAnimationComplete }: { onAnimationComplete: () => void }) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    // Check if we're on the client side
+    if (typeof window !== "undefined") {
+      // Initial check
+      setIsMobile(window.innerWidth < 768)
+
+      // Set up resize listener
+      const handleResize = () => {
+        setIsMobile(window.innerWidth < 768)
+      }
+
+      window.addEventListener("resize", handleResize)
+      return () => window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
   useEffect(() => {
     const timer = setTimeout(() => onAnimationComplete(), 2300)
     return () => clearTimeout(timer)
   }, [onAnimationComplete])
 
-  return (  
+  return (
     <AnimatePresence>
       <motion.div
         className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black"
@@ -23,18 +41,18 @@ export default function IntroAnimation({ onAnimationComplete }: { onAnimationCom
         />
 
         {/* Text with curtain animation - Matched with Hero component */}
-        <div className="relative z-10 overflow-hidden flex flex-col items-center justify-center h-[20vh] pt-16">
+        <div className="relative z-10 overflow-hidden flex flex-col items-center justify-center h-[20vh] pt-8 sm:pt-16">
           {/* VALUU HUB Text */}
           <motion.h1
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 2, ease: "easeOut" }}
-            className="text-center mb-2"
+            className="text-center mb-2 px-4"
             style={{
               fontFamily: "BankGothic RUSS, BankGothic, Impact, sans-serif",
-              fontSize: "110px",
+              fontSize: isMobile ? "40px" : "110px",
               fontWeight: 400,
-              letterSpacing: "0.2em",
+              letterSpacing: isMobile ? "0.1em" : "0.2em",
               background: "linear-gradient(to bottom, #03369B, #FFFFFF)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",

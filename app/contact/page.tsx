@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Instagram, Facebook, Linkedin } from "lucide-react"
 import Navbar from "@/components/navbar"
 import { submitContactForm } from "@/app/actions/contact-form"
@@ -17,6 +17,23 @@ export default function ContactPage() {
         success?: boolean
         message?: string
     }>({})
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        // Check if we're on the client side
+        if (typeof window !== "undefined") {
+            // Initial check
+            setIsMobile(window.innerWidth < 768)
+
+            // Set up resize listener
+            const handleResize = () => {
+                setIsMobile(window.innerWidth < 768)
+            }
+
+            window.addEventListener("resize", handleResize)
+            return () => window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
@@ -53,16 +70,16 @@ export default function ContactPage() {
             <Navbar />
 
             {/* Main content area with royal blue background */}
-            <div className="relative w-full min-h-[calc(100vh-128px)] bg-[#044CD9] py-16">
-                {/* Decorative blue rectangles */}
-                <div className="absolute top-14 left-0 w-16 h-16 bg-[#1C67FB] opacity-70 rounded-none blur-sm"></div>
-                <div className="absolute top-10 right-48 w-32 h-16 bg-[#1C67FB] opacity-70 rounded-none blur-sm"></div>
-                <div className="absolute bottom-10 left-56 w-32 h-24 bg-[#1C67FB] opacity-70 rounded-none blur-sm"></div>
-                <div className="absolute bottom-0 right-16 w-20 h-12 bg-[#8BAEFF] opacity-70 rounded-none blur-sm"></div>
+            <div className="relative w-full min-h-[calc(100vh-128px)] bg-[#044CD9] py-8 sm:py-16 px-4 sm:px-6">
+                {/* Decorative blue rectangles - hidden on mobile */}
+                <div className="absolute top-14 left-0 w-16 h-16 bg-[#1C67FB] opacity-70 rounded-none blur-sm hidden sm:block"></div>
+                <div className="absolute top-10 right-48 w-32 h-16 bg-[#1C67FB] opacity-70 rounded-none blur-sm hidden sm:block"></div>
+                <div className="absolute bottom-10 left-56 w-32 h-24 bg-[#1C67FB] opacity-70 rounded-none blur-sm hidden sm:block"></div>
+                <div className="absolute bottom-0 right-16 w-20 h-12 bg-[#8BAEFF] opacity-70 rounded-none blur-sm hidden sm:block"></div>
 
                 {/* White content box with image background and shadow */}
                 <div
-                    className="max-w-4xl mx-auto bg-white p-8 relative z-10 rounded-md overflow-hidden"
+                    className="max-w-4xl mx-auto bg-white p-4 sm:p-8 relative z-10 rounded-md overflow-hidden"
                     style={{
                         boxShadow: "0 10px 30px -5px rgba(0, 0, 0, 0.3), 0 0 20px 0 rgba(0, 57, 181, 0.2)",
                     }}
@@ -76,7 +93,9 @@ export default function ContactPage() {
 
                     {/* Content wrapper to appear above image */}
                     <div className="relative z-10">
-                        <div className="absolute left-80 top-20 bottom-20 w-0.5 bg-[#0747CC]" />
+                        {/* Vertical divider - only visible on desktop */}
+                        <div className="absolute left-1/2 top-20 bottom-20 w-0.5 bg-[#0747CC] hidden md:block" />
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {/* Contact information */}
                             <div>
@@ -85,10 +104,14 @@ export default function ContactPage() {
                                     <div>
                                         <h3 className="text-lg font-medium mb-2">Address</h3>
                                         <address className="not-italic text-gray-600 leading-relaxed">
-                                            34-A, Road No. 70<br />
-                                            Near HDFC Bank, Journalist Colony<br />
-                                            Jubilee Hills, Hyderabad<br />
-                                            Telangana - 500033<br />
+                                            34-A, Road No. 70
+                                            <br />
+                                            Near HDFC Bank, Journalist Colony
+                                            <br />
+                                            Jubilee Hills, Hyderabad
+                                            <br />
+                                            Telangana - 500033
+                                            <br />
                                             India
                                         </address>
                                     </div>
@@ -135,12 +158,11 @@ export default function ContactPage() {
                                             <Linkedin size={20} />
                                         </a>
                                     </div>
-
                                 </div>
                             </div>
 
                             {/* Contact form */}
-                            <div>
+                            <div className="mt-8 md:mt-0">
                                 <h2 className="text-2xl font-bold mb-6 text-[#0039B5]">Send a Message</h2>
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     <div>

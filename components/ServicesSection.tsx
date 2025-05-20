@@ -106,12 +106,66 @@ function ServiceCard({
     service,
     index,
     currentImageIndex,
-}: { service: Service; index: number; currentImageIndex: number }) {
+    isMobile,
+}: {
+    service: Service
+    index: number
+    currentImageIndex: number
+    isMobile: boolean
+}) {
     const [isHovered, setIsHovered] = useState(false)
+    const [isTouched, setIsTouched] = useState(false)
 
     // Get the current image to display based on the shared index
     const displayImageUrl = allServiceImages[currentImageIndex]
 
+    const handleTouchStart = () => {
+        if (isMobile) {
+            setIsTouched(!isTouched)
+        }
+    }
+
+    // For mobile, use touch instead of hover
+    const isActive = isMobile ? isTouched : isHovered
+
+    // Conditionally render with or without animations based on mobile state
+    if (isMobile) {
+        // Mobile version - no animations
+        return (
+            <div
+                key={service.id}
+                className={`flex flex-col transition-all duration-300 h-full cursor-pointer rounded-lg overflow-hidden ${isActive ? "text-white" : "bg-white text-black"
+                    }`}
+                style={{
+                    backgroundColor: isActive ? service.hoverColor : "",
+                }}
+                onTouchStart={handleTouchStart}
+            >
+                {/* Image container - static on mobile */}
+                <div className="relative h-48 w-full overflow-hidden">
+                    {isActive ? (
+                        <Image
+                            src={service.imageUrl || "/placeholder.svg"}
+                            alt={service.title}
+                            fill
+                            className="object-contain p-4"
+                        />
+                    ) : (
+                        <Image src={service.imageUrl || "/placeholder.svg"} alt="Service" fill className="object-contain p-4" />
+                    )}
+                </div>
+
+                {/* Text content */}
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                    <h2 className="text-3xl sm:text-4xl font-bold mb-2">{service.number}</h2>
+                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{service.title}</h3>
+                    <p className="text-xs sm:text-sm">{service.description}</p>
+                </div>
+            </div>
+        )
+    }
+
+    // Desktop version - with animations
     return (
         <motion.div
             key={service.id}
@@ -119,10 +173,10 @@ function ServiceCard({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`flex flex-col transition-all duration-300 h-full cursor-pointer rounded-lg overflow-hidden ${isHovered ? "text-white" : "bg-white text-black"
+            className={`flex flex-col transition-all duration-300 h-full cursor-pointer rounded-lg overflow-hidden ${isActive ? "text-white" : "bg-white text-black"
                 }`}
             style={{
-                backgroundColor: isHovered ? service.hoverColor : "",
+                backgroundColor: isActive ? service.hoverColor : "",
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -130,12 +184,12 @@ function ServiceCard({
             {/* Image container - always visible with cycling images */}
             <div className="relative h-48 w-full overflow-hidden">
                 {/* Service's own image shown on hover */}
-                <div className={`absolute inset-0 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}>
+                <div className={`absolute inset-0 transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-0"}`}>
                     <Image src={service.imageUrl || "/placeholder.svg"} alt={service.title} fill className="object-contain p-4" />
                 </div>
 
                 {/* Cycling image shown when not hovered */}
-                <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? "opacity-0" : "opacity-100"}`}>
+                <div className={`absolute inset-0 transition-opacity duration-500 ${isActive ? "opacity-0" : "opacity-100"}`}>
                     <motion.div
                         key={currentImageIndex} // Change key to force re-render on image change
                         initial={{ opacity: 0 }}
@@ -149,10 +203,10 @@ function ServiceCard({
             </div>
 
             {/* Text content */}
-            <div className="p-6 flex flex-col flex-grow">
-                <h2 className="text-4xl font-bold mb-2">{service.number}</h2>
-                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                <p className="text-sm">{service.description}</p>
+            <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                <h2 className="text-3xl sm:text-4xl font-bold mb-2">{service.number}</h2>
+                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{service.title}</h3>
+                <p className="text-xs sm:text-sm">{service.description}</p>
             </div>
         </motion.div>
     )
@@ -161,16 +215,27 @@ function ServiceCard({
 export default function ServicesSection() {
     const [detailPage, setDetailPage] = useState(1)
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
+    const [isMobile, setIsMobile] = useState(false)
     const router = useRouter()
 
-    // Set up the image cycling timer
+    // Check for mobile on client side
     useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768)
+        handleResize() // Initial check
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
+
+    // Set up the image cycling timer - only for desktop
+    useEffect(() => {
+        if (isMobile) return // Don't cycle images on mobile
+
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % allServiceImages.length)
         }, 2000) // Change image every 2 seconds
 
         return () => clearInterval(interval)
-    }, [])
+    }, [isMobile])
 
     const handleNextPage = () => {
         setDetailPage(2)
@@ -182,50 +247,97 @@ export default function ServicesSection() {
 
     const services = detailPage === 1 ? servicesPage1 : servicesPage2
 
+    // Conditionally render title with or without animation based on mobile state
+    const SectionTitle = isMobile ? (
+        <h1
+            className="text-3xl sm:text-4xl md:text-5xl font-extralight mb-8 sm:mb-16 text-center"
+            style={{ fontFamily: "Impact, sans-serif" }}
+        >
+            Things We&apos;re Great At
+        </h1>
+    ) : (
+        <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-extralight mb-8 sm:mb-16 text-center"
+            style={{ fontFamily: "Impact, sans-serif" }}
+        >
+            Things We&apos;re Great At
+        </motion.h1>
+    )
+
+    // Conditionally render buttons with or without animation based on mobile state
+    const PrevButton = isMobile ? (
+        <button
+            onClick={handlePrevPage}
+            className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full text-sm sm:text-base"
+        >
+            <ArrowLeft size={isMobile ? 16 : 20} />
+            <span>{isMobile ? "Previous" : "Previous Services"}</span>
+        </button>
+    ) : (
+        <motion.button
+            onClick={handlePrevPage}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full text-sm sm:text-base"
+        >
+            <ArrowLeft size={isMobile ? 16 : 20} />
+            <span>{isMobile ? "Previous" : "Previous Services"}</span>
+        </motion.button>
+    )
+
+    const NextButton = isMobile ? (
+        <button
+            onClick={handleNextPage}
+            className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full text-sm sm:text-base"
+        >
+            <span>{isMobile ? "Next" : "Next Services"}</span>
+            <ArrowRight size={isMobile ? 16 : 20} />
+        </button>
+    ) : (
+        <motion.button
+            onClick={handleNextPage}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full text-sm sm:text-base"
+        >
+            <span>{isMobile ? "Next" : "Next Services"}</span>
+            <ArrowRight size={isMobile ? 16 : 20} />
+        </motion.button>
+    )
+
     return (
         <section
-            className="w-full py-16 px-6 md:px-12 text-white"
+            id="services-section"
+            className="w-full py-10 sm:py-16 px-4 sm:px-6 md:px-12 text-white"
             style={{ backgroundColor: "#044CD9" }}
         >
-            <motion.h1
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-4xl md:text-5xl font-extralight mb-16 text-center"
-                style={{ fontFamily: "Impact, sans-serif" }}
-            >
-                Things We&apos;re Great At
-            </motion.h1>
+            {SectionTitle}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
                 {services.map((service, index) => (
-                    <ServiceCard key={service.id} service={service} index={index} currentImageIndex={currentImageIndex} />
+                    <ServiceCard
+                        key={service.id}
+                        service={service}
+                        index={index}
+                        currentImageIndex={currentImageIndex}
+                        isMobile={isMobile}
+                    />
                 ))}
             </div>
 
-            <div className="flex justify-center mt-12 max-w-7xl mx-auto">
-                {detailPage === 2 ? (
-                    <motion.button
-                        onClick={handlePrevPage}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full"
-                    >
-                        <ArrowLeft size={20} />
-                        <span>Previous Services</span>
-                    </motion.button>
-                ) : (
-                    <motion.button
-                        onClick={handleNextPage}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 bg-white text-blue-800 py-2 px-4 rounded-full"
-                    >
-                        <span>Next Services</span>
-                        <ArrowRight size={20} />
-                    </motion.button>
-                )}
+            {/* Mobile page indicator */}
+            {isMobile && (
+                <div className="flex justify-center mt-6 mb-2">
+                    <span className="text-white text-sm">Page {detailPage} of 2</span>
+                </div>
+            )}
+
+            <div className="flex justify-center mt-6 sm:mt-12 max-w-7xl mx-auto">
+                {detailPage === 2 ? PrevButton : NextButton}
             </div>
         </section>
     )

@@ -1,12 +1,30 @@
 "use client"
 import { motion } from "framer-motion"
 import type React from "react"
-
+import { useState, useEffect } from "react"
 import { Instagram, Linkedin, Facebook } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function Footer() {
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        // Check if we're on the client side
+        if (typeof window !== "undefined") {
+            // Initial check
+            setIsMobile(window.innerWidth < 768)
+
+            // Set up resize listener
+            const handleResize = () => {
+                setIsMobile(window.innerWidth < 768)
+            }
+
+            window.addEventListener("resize", handleResize)
+            return () => window.removeEventListener("resize", handleResize)
+        }
+    }, [])
+
     return (
         <footer className="w-full text-white overflow-hidden">
             <div
@@ -19,7 +37,7 @@ export default function Footer() {
                     {/* Top section with logo and contact button */}
                     <div className="flex flex-col md:flex-row justify-between items-center mb-8">
                         {/* Logo */}
-                        <div className="mb-6 md:mb-0 ml-4 md:ml-16">
+                        <div className="mb-6 md:mb-0 ml-0 md:ml-16">
                             <Link href="/" className="block">
                                 <motion.div whileHover={{ scale: 1.05 }} className="cursor-pointer">
                                     <Image src="/ValuuHubLogo.png" alt="ValuuHub Logo" width={120} height={120} />
@@ -43,32 +61,43 @@ export default function Footer() {
                         </Link>
                     </div>
 
-                    {/* Navigation Links - All in a single line with equal spacing */}
-                    <div className="w-full mb-12 overflow-x-auto">
-                        <nav className="flex justify-center items-center whitespace-nowrap min-w-max mx-auto">
-                            <div className="flex items-center space-x-6">
-                                <NavItem href="/" label="Home" />
-                                <NavDivider />
-                                <NavItem href="/services" label="Services" />
-                                <NavDivider />
-                                <NavItem href="/our-mission" label="Our Mission" />
-                                <NavDivider />
-                                <NavItem href="/about" label="About us" />
-                                <NavDivider />
-                                <NavItem href="/blogs" label="Blogs" />
-                            </div>
-                        </nav>
+                    {/* Navigation Links - Improved scrollable container for mobile */}
+                    <div className="w-full mb-12 relative">
+                        {/* Horizontal scroll indicator shadows for mobile */}
+                        {isMobile && (
+                            <>
+                                <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#5A90FC] to-transparent z-10"></div>
+                                <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#5A90FC] to-transparent z-10"></div>
+                            </>
+                        )}
+
+                        {/* Scrollable container with improved padding */}
+                        <div className="overflow-x-auto py-4 scrollbar-hide">
+                            <nav className={`flex justify-center items-center ${isMobile ? "w-max mx-auto px-12" : "w-full"}`}>
+                                <div className="flex items-center space-x-6 md:space-x-8">
+                                    <NavItem href="/" label="Home" />
+                                    <NavDivider />
+                                    <NavItem href="/services" label="Services" />
+                                    <NavDivider />
+                                    <NavItem href="/our-mission" label="Our Mission" />
+                                    <NavDivider />
+                                    <NavItem href="/about" label="About us" />
+                                    <NavDivider />
+                                    <NavItem href="/blogs" label="Blogs" />
+                                </div>
+                            </nav>
+                        </div>
                     </div>
 
                     {/* Tagline */}
-                    <div className="mb-12 text-center">
-                        <h2 className="text-lg md:text-2xl font-bold tracking-wide text-left text-blue-900">WE BUILD | WE BRAND</h2>
+                    <div className="mb-12 text-center md:text-left">
+                        <h2 className="text-lg md:text-2xl font-bold tracking-wide text-blue-900">WE BUILD | WE BRAND</h2>
                     </div>
 
                     <div className="relative">
-                        {/* Divider Line - Adjusted to start at 30% from left */}
+                        {/* Divider Line - Full width on mobile */}
                         <div className="relative mb-8">
-                            <div className="h-px bg-blue-900 ml-0 md:ml-[30%] w-full md:w-[70%]"></div>
+                            <div className="h-px bg-blue-900 w-full md:ml-[30%] md:w-[70%]"></div>
                         </div>
 
                         {/* Bottom Section */}
@@ -79,7 +108,10 @@ export default function Footer() {
                             </div>
                             <div className="md:w-1/3 flex justify-center md:justify-end space-x-6">
                                 <SocialIcon href="https://www.instagram.com/valuuhub/" icon={<Instagram size={20} />} />
-                                <SocialIcon href="https://www.linkedin.com/company/valuu-hub-solutions/" icon={<Linkedin size={20} />} />
+                                <SocialIcon
+                                    href="https://www.linkedin.com/company/valuu-hub-solutions/"
+                                    icon={<Linkedin size={20} />}
+                                />
                                 <SocialIcon href="https://www.facebook.com/valuuhubsolut" icon={<Facebook size={20} />} />
                             </div>
                         </div>
@@ -93,7 +125,10 @@ export default function Footer() {
 // Navigation Link Component
 function NavItem({ href, label }: { href: string; label: string }) {
     return (
-        <Link href={href} className="text-white hover:text-blue-100 transition-colors duration-300 font-medium">
+        <Link
+            href={href}
+            className="text-white hover:text-blue-100 transition-colors duration-300 font-medium text-sm md:text-base whitespace-nowrap px-1"
+        >
             {label}
         </Link>
     )
@@ -118,3 +153,5 @@ function SocialIcon({ href, icon }: { href: string; icon: React.ReactNode }) {
         </motion.a>
     )
 }
+
+

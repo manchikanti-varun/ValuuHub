@@ -125,7 +125,7 @@ const MobileTransitionScreen: React.FC<MobileTransitionScreenProps> = ({
 
                 {/* Services image reveal */}
                 <motion.div
-                    className="relative w-64 h-64 mx-auto"
+                    className="relative w-80 h-80 mx-auto"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{
                         opacity: animationPhase >= 3 ? 1 : 0,

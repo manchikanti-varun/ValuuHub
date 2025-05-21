@@ -364,26 +364,7 @@ export default function MobileHero() {
                             overflow: "visible",
                         }}
                     >
-                        <p>GOOGLE AND META ADS GOOGLE AND META ADS</p>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ x: "100%" }}
-                        animate={{ x: 0 }}
-                        transition={{ duration: 1.5, delay: 0.7, ease: "easeOut" }}
-                        className="absolute top-[64%] right-0 whitespace-nowrap"
-                        style={{
-                            fontFamily: "Impact, sans-serif",
-                            fontWeight: 400,
-                            fontSize: "50px",
-                            lineHeight: "100%",
-                            letterSpacing: "0",
-                            color: "transparent",
-                            WebkitTextStroke: "1px rgba(255, 255, 255, 0.5)",
-                            overflow: "visible",
-                        }}
-                    >
-                        <p>WEBSITE DEVELOPMENT WEBSITE DEVELOPMENT</p>
+                        <p>DIGITAL MARKETING DIGITAL MARKETING</p>
                     </motion.div>
                 </div>
 

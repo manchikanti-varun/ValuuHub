@@ -46,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const clientRoutes = clientIds.map((clientId) => ({
         url: `${baseUrl}/clients/${clientId}`,
         lastModified: currentDate,
-        changeFrequency: "monthly",
+        changeFrequency: "weekly",
         priority: 0.6,
     }))
 
